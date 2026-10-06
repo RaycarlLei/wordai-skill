@@ -1,0 +1,12 @@
+interface:
+  display_name: "WordAI"
+  short_description: "Learn English words with your WordAI vocabulary"
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "wordai"
+      description: "Read your authorized WordAI word books, learning progress and dictionary"
+      transport: "streamable_http"
+      url: "https://awesome-bears.com/api/mcp/wordai"
+policy:
+  allow_implicit_invocation: true

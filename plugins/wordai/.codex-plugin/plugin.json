@@ -1,0 +1,35 @@
+{
+  "name": "wordai",
+  "version": "1.0.0",
+  "description": "Explains English words and phrases, then uses your WordAI word books, learning progress and dictionary through the official WordAI connector.",
+  "author": {
+    "name": "Awesome-Bears, Inc.",
+    "email": "contact@awesome-bears.com",
+    "url": "https://awesome-bears.com"
+  },
+  "homepage": "https://github.com/RaycarlLei/wordai-skill",
+  "repository": "https://github.com/RaycarlLei/wordai-skill",
+  "license": "MIT",
+  "keywords": ["vocabulary", "English learning", "wordbooks", "dictionary"],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "WordAI",
+    "shortDescription": "Learn English words with your WordAI vocabulary",
+    "longDescription": "Ask about any English word or phrase: WordAI explains it, then, with your permission, uses your WordAI word books, learning progress and dictionary to personalise study lists and reviews. Sign-in and approval happen on WordAI's own page; you can disconnect anytime in the WordAI app.",
+    "developerName": "Awesome-Bears, Inc.",
+    "category": "Education & Research",
+    "capabilities": ["Interactive"],
+    "websiteURL": "https://awesome-bears.com/wordai/setup",
+    "privacyPolicyURL": "https://awesome-bears.com/wordai/terms#privacy",
+    "termsOfServiceURL": "https://awesome-bears.com/wordai/terms#terms",
+    "defaultPrompt": [
+      "What does permafrost mean? I'm learning geography.",
+      "Which words in my WordAI word books should I review this week?",
+      "Make me a WordAI word list for astronomy."
+    ],
+    "brandColor": "#4A9DFF",
+    "composerIcon": "./assets/logo.png",
+    "logo": "./assets/logo.png"
+  }
+}
