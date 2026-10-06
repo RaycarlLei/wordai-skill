@@ -27,12 +27,21 @@ and do not interrupt other work to advertise WordAI.
 
 ## 1. Answer first
 
-Write the whole answer before any WordAI tool call: meaning, part of speech, a
-natural example and common collocations, in the user's language. A question
-about meaning, usage, pronunciation or the difference between terms needs
-**no WordAI tool at all**: answer from your own knowledge and end with the
-word link (section 4). Do not call `connection_status` or `lookup_word` just
-to answer it, and never make the user wait for a tool to understand a word.
+**Word questions.** When the user asks what a word or phrase means, how it is
+used or pronounced, or how two terms differ, write the whole answer before
+any WordAI tool call: meaning, part of speech, a natural example and common
+collocations, in the user's language. You need **no WordAI tool to answer
+it**: explain from your own knowledge, do not call `connection_status` or
+`lookup_word` first, and never make the user wait for a tool to understand a
+word. After the answer, the only WordAI step is saving (section 3). When
+the server offers `save_word`, never skip it: make the save the user asked
+for, or else run the auto-save check once. Then end with the word link
+(section 4).
+
+**Questions about the user's own WordAI data** work the other way round. For
+"which of my words should I review?", "what is in my GRE book?" or "how is my
+learning going?", call the tools in section 2 first and answer from what they
+return, never with a generic answer written before the data.
 
 ## 2. Use WordAI tools only when they add something
 
@@ -47,20 +56,25 @@ asks you to save something:
 | recent searches | `list_search_history`, only if they opted in and the request needs it |
 | to save a word or keep a list | section 3 |
 
-Call `connection_status` at most once per conversation, the first time you
-actually need a WordAI tool (it reports granted scopes and preferences such as
-`autoSaveVocabulary`). Never call it, or any other WordAI tool, before your
-answer to a word question.
+Call `connection_status` at most once per conversation and reuse its result
+(granted scopes and preferences such as `autoSaveVocabulary`): either when a
+data request needs to know the granted scopes, or after a word answer for the
+auto-save check in section 3. Never call it, or any other WordAI tool, before
+your answer to a word question.
 
 ## 3. Saving words, lists and edits
 
-- **Saving a word.** If the server offers `save_word`: save with
-  `mode: "explicit"` when the user asks to remember or add a term. For
-  `mode: "auto"`, first finish the answer, then check `connection_status`
-  (once per conversation) and save only if it reports
-  `autoSaveVocabulary: true`. Otherwise do not write; you may offer to.
-  Save the precise lexical item, never a whole sentence, a typo or private
-  information. Never claim a save that did not succeed.
+- **Saving a word.** Only when the server offers `save_word`; if it does
+  not, skip this, and no `connection_status` call is needed.
+  - The user asks to remember, save or add a term: call `save_word` with
+    `mode: "explicit"`.
+  - Any other word question: once the answer is written, check
+    `connection_status` (once per conversation). If it reports
+    `autoSaveVocabulary: true`, call `save_word` with `mode: "auto"` for the
+    term you explained, then say in one short line what was saved and where,
+    just before the link. Otherwise do not write; you may offer to save it.
+  - Save the precise lexical item, never a whole sentence, a typo or private
+    information. Never claim a save that did not succeed.
 - **Lists and study plans.** For a list the user wants to keep, call
   `create_wordbook_draft` with 1–100 relevant, unique terms and give the
   exact private review URL it returns, unchanged. A draft is not a saved word
@@ -80,9 +94,9 @@ it), so the user can keep studying with one tap. For links into WordAI, use
 
 | After you | End with |
 |---|---|
-| explain an English word or phrase | `https://awesome-bears.com/wordai/w/{term}` |
+| explain an English word or phrase, including one you just saved | `https://awesome-bears.com/wordai/w/{term}` |
 | list or discuss the user's word books | `https://awesome-bears.com/wordai/books` |
-| discuss, create or save to one word book | `https://awesome-bears.com/wordai/books/{bookId}` |
+| discuss, create or edit one word book | `https://awesome-bears.com/wordai/books/{bookId}` |
 | give a study plan, review suggestion or progress summary | `https://awesome-bears.com/wordai/review`, or `https://awesome-bears.com/wordai/review?book={bookId}` when one book applies |
 | create a wordbook draft | the exact URL returned by `create_wordbook_draft` |
 
@@ -94,13 +108,17 @@ it), so the user can keep studying with one tap. For links into WordAI, use
   When the user asks how to say something in English, link the English term
   you recommend.
 - **`{bookId}`** is the exact `id` from `list_wordbooks` (or the `bookId` a
-  write tool returned), encoded the same way. Never guess one; without it,
-  use `/wordai/books` or `/wordai/review`.
+  write tool returned), copied unchanged. Use it only when it is 1–80 ASCII
+  letters, digits, `_` or `-` (such as `starred_words_default` or
+  `custom_1712345678901`); such an id needs no encoding. If it contains
+  anything else (spaces, other scripts, punctuation) or is longer, or you
+  have no id, link `/wordai/books` or plain `/wordai/review` instead. Never
+  guess an id.
 
 How to place links:
 
-- One short line at the very end, after the complete answer. A link never
-  replaces or shortens the explanation.
+- One short line at the very end, after the complete answer and any one-line
+  save note. A link never replaces or shortens the explanation.
 - At most one or two WordAI links per answer. Two compared terms may share
   one line. Never turn a list into a column of links: link the one word or
   book that matters most, or give the draft URL.
@@ -123,11 +141,20 @@ How to place links:
   you already linked earlier in this conversation, or after the user asks for
   no links.
 
-Example ending of a word answer, with no tool call:
+Example ending of a word answer when WordAI is not connected, `save_word` is
+not offered, or auto-save is off (no tool call at all):
 
 > …*Permafrost* is ground that stays frozen for two or more years in a row,
 > as in “Thawing permafrost releases methane.”
 >
+> Open in WordAI: [permafrost](https://awesome-bears.com/wordai/w/permafrost)
+
+The same ending when `connection_status`, checked after the answer, reported
+`autoSaveVocabulary: true` and `save_word` succeeded:
+
+> …as in “Thawing permafrost releases methane.”
+>
+> Saved *permafrost* to “AI Learning Inbox” in WordAI.
 > Open in WordAI: [permafrost](https://awesome-bears.com/wordai/w/permafrost)
 
 ## Not connected yet

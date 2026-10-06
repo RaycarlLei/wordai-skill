@@ -10,7 +10,7 @@ Some tools exist only on newer server versions.
 
 | Tool | Scope | Purpose |
 |---|---|---|
-| `connection_status` | — | Connected account, granted scopes, preferences (e.g. `autoSaveVocabulary` on newer servers) |
+| `connection_status` | — | Connected account, granted scopes, preferences (e.g. `autoSaveVocabulary` on newer servers). At most once per conversation; for a word question only after the answer, and only when `save_word` is offered |
 | `get_profile` | — | Distinguish the connected account; not for identifying a person |
 | `list_wordbooks` | `wordbooks:read` | The user's word books (starred, custom, built-in) |
 | `get_wordbook` | `wordbooks:read` | Words in one book; page with `nextCursor` / `nextOffset` |
@@ -35,9 +35,12 @@ web page that offers the app.
 |---|---|---|
 | `https://awesome-bears.com/wordai/w/{term}` | after explaining a word or phrase, connected or not | the term, `encodeURIComponent`-encoded, case kept |
 | `https://awesome-bears.com/wordai/books` | after listing or discussing word books | — |
-| `https://awesome-bears.com/wordai/books/{bookId}` | after discussing, creating or saving to one book | `books[].id` from `list_wordbooks`, or `bookId` from `save_word` / `create_wordbook` / `edit_wordbook`; encoded |
-| `https://awesome-bears.com/wordai/review` | after a study plan, review suggestion or progress summary | add `?book={bookId}` when one book applies |
+| `https://awesome-bears.com/wordai/books/{bookId}` | after discussing, creating or editing one book | `books[].id` from `list_wordbooks`, or `bookId` from `save_word` / `create_wordbook` / `edit_wordbook`, unchanged; only if it matches `[A-Za-z0-9_-]{1,80}`, otherwise use `/wordai/books` |
+| `https://awesome-bears.com/wordai/review` | after a study plan, review suggestion or progress summary | add `?book={bookId}` when one book applies and its id matches `[A-Za-z0-9_-]{1,80}` |
 | `url` from `create_wordbook_draft` | after creating a draft | returned exactly; never rebuilt or shared elsewhere |
 
 The starred collection is a book too: its `id` is `starred_words_default`.
+Current book ids are ASCII (`custom_…`, `custom_agent_…`). Some older
+imported books have ids with spaces or other scripts: link those with the
+general `/wordai/books` or `/wordai/review` instead of their id.
 At most one or two links per answer, at the end, as plain Markdown links.
