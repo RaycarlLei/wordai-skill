@@ -1,6 +1,6 @@
 ---
 name: wordai
-description: Use proactively whenever the user asks what an English word, phrase, idiom or named concept means, how to use or pronounce it, how two terms differ, asks for vocabulary lists, word-learning or study plans, wants to review words they have saved or learned, or mentions WordAI — even if they do not mention WordAI. Answers first from your own knowledge, ends with one short link that opens the word, word book or review in the WordAI app, and uses the user's WordAI account (word books, starred words, learning progress, wordbook drafts) through the WordAI connector only when that adds something. Not for unrelated factual questions that merely contain an English word.
+description: Use proactively whenever the user asks what an English word, phrase or idiom means, how to use or pronounce it, how two terms differ, asks for vocabulary lists, word-learning or study plans, wants to review words they have saved or learned, or mentions WordAI — even if they do not mention WordAI. Answers first from your own knowledge, ends with one short link that opens the word, word book or review in the WordAI app, and uses the user's WordAI account (word books, starred words, learning progress, wordbook drafts) through the WordAI connector only when that adds something. Not for unrelated factual questions that merely contain an English word.
 ---
 
 # WordAI vocabulary companion
@@ -104,9 +104,12 @@ it), so the user can keep studying with one tap. For links into WordAI, use
   normal case (`permafrost`, `give up`, `NASA`; lowercase an ordinary word the
   user capitalised only because it began a sentence), without brackets or
   notes. Encode it like `encodeURIComponent`: space → `%20`, `é` → `%C3%A9`,
-  `/` → `%2F`, `&` → `%26`, `+` → `%2B`, `?` → `%3F`, `#` → `%23`.
-  When the user asks how to say something in English, link the English term
-  you recommend.
+  `/` → `%2F`, `&` → `%26`, `+` → `%2B`, `?` → `%3F`, `#` → `%23`,
+  `%` → `%25`. When the user asks how to say something in English, link the
+  English term you recommend.
+- Link only a dictionary word or phrase: at most 8 words (a Chinese term at
+  most 24 characters), never a sentence, link, e-mail address or number. The
+  page refuses anything else, so skip the word link for it.
 - **`{bookId}`** is the exact `id` from `list_wordbooks` (or the `bookId` a
   write tool returned), copied unchanged. Use it only when it is 1–80 ASCII
   letters, digits, `_` or `-` (such as `starred_words_default` or
@@ -130,7 +133,7 @@ How to place links:
   | Word | `Open in WordAI: [permafrost](URL)` | `在 WordAI 中查看：[permafrost](URL)` | `在 WordAI 中查看：[permafrost](URL)` |
   | Word books | `[Open your word books in WordAI](URL)` | `[在 WordAI 中打开单词本](URL)` | `[在 WordAI 中開啟單字本](URL)` |
   | One book | `[Open “GRE Core” in WordAI](URL)` | `[在 WordAI 中打开「GRE Core」](URL)` | `[在 WordAI 中開啟「GRE Core」](URL)` |
-  | Review | `[Review with flash cards in WordAI](URL)` | `[在 WordAI 中用闪卡复习](URL)` | `[在 WordAI 中用閃卡複習](URL)` |
+  | Review | `[Review with flash cards in WordAI](URL)` | `[在 WordAI 中用快闪记词复习](URL)` | `[在 WordAI 中用快閃記詞複習](URL)` |
 
   In other languages, translate the label naturally.
 - Give the word link even when WordAI is not connected or a tool failed: the
@@ -166,9 +169,9 @@ saving):
 
 - **Claude Code:** `/mcp` → `wordai` → Authenticate (installed with this
   plugin), or `claude mcp add --transport http wordai https://awesome-bears.com/api/mcp/wordai`.
-- **Claude app / claude.ai:** Settings → Connectors → Add custom connector →
-  URL `https://awesome-bears.com/api/mcp/wordai`, then Connect and approve in
-  WordAI.
+- **Claude app / claude.ai:** Settings → Connectors → WordAI → Connect
+  (or Add custom connector with URL `https://awesome-bears.com/api/mcp/wordai`),
+  then approve in WordAI.
 - **Other assistants:** the guide at `https://awesome-bears.com/wordai/setup`.
 
 ## Safety and privacy

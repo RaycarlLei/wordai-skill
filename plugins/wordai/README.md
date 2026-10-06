@@ -56,8 +56,8 @@ through the few taps above.
 ## What Claude can access
 
 Only what you approve: word books and starred words, learning progress,
-opt-in search history, published WordAI entries, and private wordbook drafts
-that you review and save yourself. Revoke access anytime in the WordAI app
+opt-in search history, WordAI dictionary entries or your saved words, and
+private wordbook drafts that you review and save yourself. Revoke access anytime in the WordAI app
 under **Settings → AI connections**.
 
 - Privacy and terms: https://awesome-bears.com/wordai/terms
