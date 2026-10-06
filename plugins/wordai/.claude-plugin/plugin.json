@@ -1,0 +1,13 @@
+{
+  "name": "wordai",
+  "version": "1.0.0",
+  "description": "Explains English words and phrases, then uses your WordAI word books, learning progress and dictionary through the official WordAI connector.",
+  "author": {
+    "name": "Awesome Bears",
+    "url": "https://awesome-bears.com"
+  },
+  "homepage": "https://github.com/RaycarlLei/wordai-skill",
+  "repository": "https://github.com/RaycarlLei/wordai-skill",
+  "license": "MIT",
+  "keywords": ["vocabulary", "english", "dictionary", "learning", "mcp"]
+}

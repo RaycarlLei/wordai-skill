@@ -1,0 +1,59 @@
+# WordAI for Claude
+
+Open-source Claude plugin and Agent Skill for [WordAI](https://awesome-bears.com/wordai),
+the English dictionary and vocabulary-learning app. Ask Claude about any
+English word or phrase and it explains it, then quietly uses your own WordAI
+word books, starred words and learning progress to personalise the answer,
+build study lists and help you review.
+
+- **Skill** `wordai`: tells Claude when and how to help with vocabulary,
+  proactively, without you having to mention WordAI.
+- **Connector**: the official WordAI MCP server
+  `https://awesome-bears.com/api/mcp/wordai` (OAuth 2.1 + PKCE). You sign in
+  and choose what Claude may read on WordAI's own page. No password, code or
+  token ever goes into a chat.
+
+## Install
+
+### Claude app and claude.ai
+
+1. Open **Customize → Plugins → Add → Add marketplace** and enter
+   `RaycarlLei/wordai-skill`.
+2. Install **WordAI**, then connect it and approve access on the WordAI page.
+
+### Claude Code
+
+```
+/plugin marketplace add RaycarlLei/wordai-skill
+/plugin install wordai@wordai
+```
+
+Then run `/mcp`, choose **wordai** → **Authenticate** and approve access in the
+browser.
+
+### Or paste one prompt
+
+Copy the prompt in [INSTALL_PROMPT.md](INSTALL_PROMPT.md) into Claude. In
+Claude Code it installs everything itself; in the Claude app it walks you
+through the few taps above.
+
+## What Claude can access
+
+Only what you approve: word books and starred words, learning progress,
+opt-in search history, published WordAI entries, and private wordbook drafts
+that you review and save yourself. Revoke access anytime in the WordAI app
+under **Settings → AI connections**.
+
+- Privacy and terms: https://awesome-bears.com/wordai/terms
+- Support: contact@awesome-bears.com
+
+## Repository layout
+
+```
+.claude-plugin/marketplace.json        marketplace "wordai"
+plugins/wordai/.claude-plugin/plugin.json
+plugins/wordai/.mcp.json               WordAI connector
+plugins/wordai/skills/wordai/SKILL.md  the skill
+```
+
+MIT licensed.

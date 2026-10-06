@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "wordai": {
+      "type": "http",
+      "url": "https://awesome-bears.com/api/mcp/wordai"
+    }
+  }
+}
