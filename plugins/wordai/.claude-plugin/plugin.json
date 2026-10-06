@@ -1,5 +1,6 @@
 {
   "name": "wordai",
+  "displayName": "WordAI",
   "version": "1.1.0",
   "description": "Explains English words and phrases with one-tap links into the WordAI app, and uses your WordAI word books, learning progress and dictionary through the official WordAI connector when that helps.",
   "author": {
@@ -10,5 +11,8 @@
   "repository": "https://github.com/RaycarlLei/wordai-skill",
   "license": "MIT",
   "privacyPolicyUrl": "https://awesome-bears.com/wordai/terms#privacy",
+  "termsOfServiceUrl": "https://awesome-bears.com/wordai/terms#terms",
+  "supportUrl": "https://awesome-bears.com/wordai/terms#support",
+  "documentationUrl": "https://awesome-bears.com/wordai/setup",
   "keywords": ["vocabulary", "english", "dictionary", "learning", "mcp"]
 }
