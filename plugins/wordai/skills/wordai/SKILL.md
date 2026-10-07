@@ -1,6 +1,6 @@
 ---
 name: wordai
-description: Use proactively whenever the user asks what an English word, phrase or idiom means, how to use or pronounce it, how two terms differ, asks for vocabulary lists, word-learning or study plans, wants to review words they have saved or learned, or mentions WordAI — even if they do not mention WordAI. Answers first from your own knowledge, ends with one short link that opens the word, word book or review in the WordAI app, and uses the user's WordAI account (word books, starred words, learning progress, wordbook drafts) through the WordAI connector only when that adds something. Not for unrelated factual questions that merely contain an English word.
+description: Use proactively whenever the user asks what an English word, phrase or idiom means, how to use or pronounce it, how two terms differ, asks for vocabulary lists, word-learning or study plans, wants to review words they have saved or learned, or mentions WordAI — even if they do not mention WordAI. Answers first from your own knowledge, ends with one short link that opens the word, word book or review in the WordAI app, and uses the user's WordAI account (word books, starred words, learning progress) through the WordAI connector only when that adds something, and saves, edits and deletes the user's word books directly when they ask. Not for unrelated factual questions that merely contain an English word.
 ---
 
 # WordAI vocabulary companion
@@ -54,7 +54,7 @@ asks you to save something:
 | to know whether they already saved a term | `lookup_word` (follow its live description; `found: false` never means the word is invalid) |
 | their progress, or what to study or review next | `get_learning_summary`, then `list_learning_progress` for detail |
 | recent searches | `list_search_history`, only if they opted in and the request needs it |
-| to save a word or keep a list | section 3 |
+| to save a word, keep a list, or edit, delete or restore a word book | section 3 |
 
 Call `connection_status` at most once per conversation and reuse its result
 (granted scopes and preferences such as `autoSaveVocabulary`): either when a
@@ -76,14 +76,23 @@ your answer to a word question.
   - Save the precise lexical item, never a whole sentence, a typo or private
     information. Never claim a save that did not succeed.
 - **Lists and study plans.** For a list the user wants to keep, call
-  `create_wordbook_draft` with 1–100 relevant, unique terms and give the
-  exact private review URL it returns, unchanged. A draft is not a saved word
-  book: the user reviews, edits and saves it in WordAI. Never share that URL
-  elsewhere.
-- **Edits and deletion** (`create_wordbook`, `edit_wordbook`,
-  `delete_wordbook`, when offered): read the target book first, change only
-  what was asked, and delete only after the user clearly confirms that
-  specific book.
+  `create_wordbook` directly with 1–100 relevant, unique terms: it saves a
+  real word book in WordAI, so do not ask first and do not make a draft
+  instead. Then say in one short line what was saved and link the book.
+  Use `create_wordbook_draft` only when the user explicitly asks for a draft
+  to review first; then give the exact private URL it returns, unchanged,
+  and never share that URL elsewhere.
+- **Edits and deletion.** When the user asks to rename a book, add or remove
+  terms, or delete a book, do it directly with `edit_wordbook` or
+  `delete_wordbook` (`{bookId}`), without asking for confirmation. Read the
+  target book first when you need its id or terms, and change only what was
+  asked. Afterwards tell the user what changed, and that deleted books and
+  removed terms stay in WordAI's trash for 7 days (the tools return a
+  `trashId` and `restorableUntil`).
+- **Undo.** To bring something back, call `list_trash` and then
+  `restore_from_trash` with its `trashId`. A restored book gets a new
+  `bookId` (link that one); removed terms go back to their book, or to the
+  AI Learning Inbox if the book is gone.
 
 ## 4. Link back to WordAI
 
@@ -94,11 +103,11 @@ it), so the user can keep studying with one tap. For links into WordAI, use
 
 | After you | End with |
 |---|---|
-| explain an English word or phrase, including one you just saved | `https://awesome-bears.com/wordai/w/{term}` |
+| explain an English word or phrase, including one you just saved | `https://wordai.awesome-bears.com/w/{term}` |
 | list or discuss the user's word books | `https://awesome-bears.com/wordai/books` |
 | discuss, create or edit one word book | `https://awesome-bears.com/wordai/books/{bookId}` |
 | give a study plan, review suggestion or progress summary | `https://awesome-bears.com/wordai/review`, or `https://awesome-bears.com/wordai/review?book={bookId}` when one book applies |
-| create a wordbook draft | the exact URL returned by `create_wordbook_draft` |
+| create a wordbook draft (only when asked for one) | the exact URL returned by `create_wordbook_draft` |
 
 - **`{term}`** is the word or phrase you explained, in its dictionary form and
   normal case (`permafrost`, `give up`, `NASA`; lowercase an ordinary word the
@@ -150,7 +159,7 @@ not offered, or auto-save is off (no tool call at all):
 > …*Permafrost* is ground that stays frozen for two or more years in a row,
 > as in “Thawing permafrost releases methane.”
 >
-> Open in WordAI: [permafrost](https://awesome-bears.com/wordai/w/permafrost)
+> Open in WordAI: [permafrost](https://wordai.awesome-bears.com/w/permafrost)
 
 The same ending when `connection_status`, checked after the answer, reported
 `autoSaveVocabulary: true` and `save_word` succeeded:
@@ -158,7 +167,7 @@ The same ending when `connection_status`, checked after the answer, reported
 > …as in “Thawing permafrost releases methane.”
 >
 > Saved *permafrost* to “AI Learning Inbox” in WordAI.
-> Open in WordAI: [permafrost](https://awesome-bears.com/wordai/w/permafrost)
+> Open in WordAI: [permafrost](https://wordai.awesome-bears.com/w/permafrost)
 
 ## Not connected yet
 

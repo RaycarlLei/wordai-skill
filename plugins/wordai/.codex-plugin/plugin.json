@@ -1,6 +1,6 @@
 {
   "name": "wordai",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Explains English words and phrases with one-tap links into the WordAI app, and uses your WordAI word books, learning progress and dictionary through the official WordAI connector when that helps.",
   "author": {
     "name": "Awesome-Bears, Inc.",
@@ -16,7 +16,7 @@
   "interface": {
     "displayName": "WordAI",
     "shortDescription": "Learn English words with your WordAI vocabulary",
-    "longDescription": "Ask about any English word or phrase: WordAI explains it and links you straight to that word, your word books or a flash-card review in the WordAI app. With your permission, it also uses your WordAI word books, learning progress and dictionary to personalise study lists and reviews. Sign-in and approval happen on WordAI's own page; you can disconnect anytime in the WordAI app.",
+    "longDescription": "Ask about any English word or phrase: WordAI explains it and links you straight to that word, your word books or a flash-card review in the WordAI app. With your permission, it also uses your WordAI word books, learning progress and dictionary to personalise study lists and reviews, and saves, edits and deletes word books for you when you ask; deleted items stay in WordAI's trash for 7 days. Sign-in and approval happen on WordAI's own page; you can disconnect anytime in the WordAI app.",
     "developerName": "Awesome-Bears, Inc.",
     "category": "Education & Research",
     "capabilities": ["Interactive"],

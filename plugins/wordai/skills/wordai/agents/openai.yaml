@@ -5,7 +5,7 @@ dependencies:
   tools:
     - type: "mcp"
       value: "wordai"
-      description: "Read your authorized WordAI word books, learning progress and dictionary"
+      description: "Read and change your WordAI word books, learning progress and dictionary"
       transport: "streamable_http"
       url: "https://awesome-bears.com/api/mcp/wordai"
 policy:
