@@ -10,26 +10,115 @@
   "homepage": "https://github.com/RaycarlLei/wordai-skill",
   "repository": "https://github.com/RaycarlLei/wordai-skill",
   "license": "MIT",
-  "keywords": ["vocabulary", "English learning", "wordbooks", "dictionary"],
+  "keywords": [
+    "vocabulary",
+    "English learning",
+    "wordbooks",
+    "dictionary"
+  ],
   "skills": "./skills/",
   "mcpServers": "./.mcp.json",
   "interface": {
     "displayName": "WordAI",
-    "shortDescription": "Learn English words with your WordAI vocabulary",
-    "longDescription": "Ask about any English word or phrase: WordAI explains it and links you straight to that word, your word books or a flash-card review in the WordAI app. With your permission, it also uses your WordAI word books, learning progress and dictionary to personalise study lists and reviews, and saves, edits and deletes word books for you when you ask; deleted items stay in WordAI's trash for 7 days. Sign-in and approval happen on WordAI's own page; you can disconnect anytime in the WordAI app.",
+    "shortDescription": "English vocabulary with WordAI",
+    "longDescription": "Ask about any English word or phrase: WordAI explains it and links you straight to that word, your word books or a flash-card review in the WordAI app. With your permission, it reads your WordAI word books and learning progress to personalise study lists and reviews, and saves words, creates, edits and deletes word books when you clearly ask. Deleted books and removed words stay in WordAI's trash for 7 days and can be restored. It can also prepare a private draft list for you to review first. Search history is off by default. Sign-in and approval happen on WordAI's own page; you can disconnect anytime in the WordAI app. Requires a WordAI account.",
     "developerName": "Awesome-Bears, Inc.",
     "category": "Education & Research",
-    "capabilities": ["Interactive"],
+    "capabilities": [
+      "Read your WordAI word books and learning progress",
+      "Save words and create or edit word books when you ask",
+      "Delete word books on request, with a 7-day trash and restore",
+      "Prepare a private word book draft for you to review"
+    ],
     "websiteURL": "https://awesome-bears.com/wordai/setup",
     "privacyPolicyURL": "https://awesome-bears.com/wordai/terms#privacy",
     "termsOfServiceURL": "https://awesome-bears.com/wordai/terms#terms",
     "defaultPrompt": [
-      "What does permafrost mean? I'm learning geography.",
+      "What does permafrost mean? Save it to my WordAI word book.",
       "Which words in my WordAI word books should I review this week?",
-      "Make me a WordAI word list for astronomy."
+      "Make me a WordAI word book of astronomy words."
     ],
     "brandColor": "#4A9DFF",
     "composerIcon": "./assets/logo.png",
-    "logo": "./assets/logo.png"
+    "logo": "./assets/logo.png",
+    "supportURL": "https://awesome-bears.com/wordai/terms#support"
+  },
+  "extensions": {
+    "com.openai": {
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "List the reviewer's word books",
+              "prompt": "What WordAI word books do I have?",
+              "tools_triggered": "list_wordbooks",
+              "expected_behavior": "Lists the account's own books: Review Reading (3 words) and Starred words (1 word); an empty AI Learning Inbox may also appear. No other user's books."
+            },
+            {
+              "description": "Study plan from a book and learning progress",
+              "prompt": "Read my Review Reading word book and give me a short study plan based on what I've already learned.",
+              "tools_triggered": "list_wordbooks, get_wordbook, get_learning_summary",
+              "expected_behavior": "Reads context, evidence and reliable; reports one meaning learned and one context-passed; gives a short plan from those words only."
+            },
+            {
+              "description": "Explain a word and save it",
+              "prompt": "What does 'meticulous' mean? Save it to my WordAI word book.",
+              "tools_triggered": "save_word",
+              "expected_behavior": "Explains the word first, then saves it directly to the AI Learning Inbox and says so, with a link that opens the word in WordAI."
+            },
+            {
+              "description": "Create a saved word book",
+              "prompt": "Create a WordAI word book called Astronomy Basics with orbit, eclipse and telescope.",
+              "tools_triggered": "create_wordbook",
+              "expected_behavior": "Creates a saved custom word book (not a draft) named Astronomy Basics with the three words and reports it."
+            },
+            {
+              "description": "Delete a book and restore it from trash",
+              "prompt": "Delete my Astronomy Basics word book. Actually, bring it back.",
+              "tools_triggered": "list_wordbooks, delete_wordbook, restore_from_trash",
+              "expected_behavior": "Deletes the named book on the clear request (moved to WordAI's 7-day trash), then restores it with restore_from_trash and confirms it is back."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Weather question",
+              "prompt": "Will it rain in Toronto tomorrow?"
+            },
+            {
+              "description": "Programming question",
+              "prompt": "Write a Python function that reads a CSV file and groups rows by date."
+            },
+            {
+              "description": "Flight booking",
+              "prompt": "Find and book a flight from New York to Vancouver next Friday."
+            }
+          ]
+        },
+        "demo_recording_url": "https://awesome-bears.com/wordai/chatgpt-review-demo.mp4",
+        "commerce": false,
+        "commerce_description": "This plugin does not sell products or process payments."
+      },
+      "publication": {
+        "countries": [
+          "US",
+          "CA"
+        ],
+        "release_notes": "1.2.1: WordAI can now save words and create, edit and delete the user's word books when they clearly ask. Deletions go to a 7-day trash with list_trash and restore_from_trash. lookup_word now checks the user's own saved words. Private drafts remain available. Replaces the cancelled 1.0.0 submission.",
+        "translations": {
+          "zh-CN": {
+            "subtitle": "用 WordAI 学英语单词",
+            "description": "询问任何英语单词或短语：WordAI 会给出解释，并附上直达 WordAI App 中该词、你的单词本或闪卡复习的链接。经你授权后，它会读取你的 WordAI 单词本和学习进度来定制学习清单和复习计划，并在你明确要求时收藏单词、创建、编辑和删除单词本。删除的单词本和移除的单词会在 WordAI 回收站保留 7 天，可以恢复。它也可以先生成一份私人草稿供你确认。搜索记录默认关闭。登录和授权都在 WordAI 自己的页面完成，随时可以在 WordAI App 中断开连接。需要 WordAI 账号。"
+          },
+          "zh-TW": {
+            "subtitle": "用 WordAI 學英文單字",
+            "description": "詢問任何英文單字或片語：WordAI 會提供解釋，並附上直達 WordAI App 中該字、你的單字本或閃卡複習的連結。經你授權後，它會讀取你的 WordAI 單字本和學習進度來客製學習清單和複習計畫，並在你明確要求時收藏單字、建立、編輯和刪除單字本。刪除的單字本和移除的單字會在 WordAI 垃圾桶保留 7 天，可以還原。它也可以先產生一份私人草稿讓你確認。搜尋紀錄預設關閉。登入和授權都在 WordAI 自己的頁面完成，隨時可以在 WordAI App 中中斷連線。需要 WordAI 帳號。"
+          },
+          "zh-HK": {
+            "subtitle": "用 WordAI 學英文生字",
+            "description": "詢問任何英文生字或片語：WordAI 會提供解釋，並附上直達 WordAI App 中該字、你的生字簿或閃卡溫習的連結。經你授權後，它會讀取你的 WordAI 生字簿和學習進度來度身訂造學習清單和溫習計劃，並在你明確要求時收藏生字、建立、編輯和刪除生字簿。刪除的生字簿和移除的生字會在 WordAI 垃圾桶保留 7 天，可以還原。它也可以先產生一份私人草稿讓你確認。搜尋紀錄預設關閉。登入和授權都在 WordAI 自己的頁面完成，隨時可以在 WordAI App 中中斷連線。需要 WordAI 帳戶。"
+          }
+        }
+      }
+    }
   }
 }

@@ -1,6 +1,6 @@
 ---
 name: wordai
-description: Use proactively whenever the user asks what an English word, phrase or idiom means, how to use or pronounce it, how two terms differ, asks for vocabulary lists, word-learning or study plans, wants to review words they have saved or learned, or mentions WordAI — even if they do not mention WordAI. Answers first from your own knowledge, ends with one short link that opens the word, word book or review in the WordAI app, and uses the user's WordAI account (word books, starred words, learning progress) through the WordAI connector only when that adds something, and saves, edits and deletes the user's word books directly when they ask. Not for unrelated factual questions that merely contain an English word.
+description: Use proactively whenever the user asks what an English word, phrase or idiom means, how to use or pronounce it, how two terms differ, asks for vocabulary lists, word-learning or study plans, wants to review words they have saved or learned, or mentions WordAI — even if they do not mention WordAI. Answers first from your own knowledge, ends with one short link that opens the word, word book or review in the WordAI app, and uses the user's WordAI account (word books, starred words, learning progress) through the WordAI connector only when that adds something, and saves, edits and deletes the user's word books when they clearly ask. Not for unrelated factual questions that merely contain an English word.
 ---
 
 # WordAI vocabulary companion
