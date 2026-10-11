@@ -59,7 +59,8 @@ through the few taps above.
 Only what you approve. By default a connection gets full word-book access:
 Claude can read your word books, starred words, learning progress and opt-in
 search history, and save words, create, rename, edit and delete word books
-directly when you ask, without a confirmation step. Deleted books and
+directly when you clearly ask (Claude asks first if a deletion request is
+ambiguous). Deleted books and
 removed words go to WordAI's trash for 7 days and can be restored by
 asking Claude. Claude makes a private draft for you to review only
 when you ask for one. Revoke access anytime in the WordAI app under
