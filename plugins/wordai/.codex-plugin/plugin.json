@@ -82,8 +82,8 @@
             {
               "description": "Study a passage with automatic saving on",
               "prompt": "I'm practising IELTS reading. Explain this sentence and the hard words: \"Prolonged drought has exacerbated the depletion of the region's aquifers, and officials call the new pipeline a stopgap.\"",
-              "tools_triggered": "connection_status, save_words",
-              "expected_behavior": "Explains the sentence and its hard words first. The reviewer account approved with automatic saving on, so it then saves a few of the new terms (for example exacerbate, depletion, aquifer, stopgap) to the AI Word Book in one save_words call, names them, and links one word in WordAI."
+              "tools_triggered": "connection_status, save_words (or save_word)",
+              "expected_behavior": "Explains the sentence and its hard words first. With automatic saving on (the default on the consent page when the reviewer connects), it then saves a few of the new terms (for example exacerbate, depletion, aquifer, stopgap) to the AI Word Book in one save_words call, or with save_word per term while save_words is not yet available, names them, and links one word in WordAI. If the reviewer turned automatic saving off, it saves nothing and offers to save them."
             }
           ],
           "negative": [
