@@ -1,6 +1,6 @@
 ---
 name: wordai
-description: Use proactively whenever the user asks what an English word, phrase or idiom means, how to use or pronounce it, how two terms differ, asks for vocabulary lists, word-learning or study plans, wants to review words they have saved or learned, or mentions WordAI — even if they do not mention WordAI. Answers first from your own knowledge, ends with one short link that opens the word, word book or review in the WordAI app, and uses the user's WordAI account (word books, starred words, learning progress) through the WordAI connector only when that adds something, and saves, edits and deletes the user's word books when they clearly ask. Not for unrelated factual questions that merely contain an English word.
+description: Use proactively whenever the user is learning English vocabulary, even if they do not mention WordAI. They ask what an English word, phrase or idiom means, how to use or pronounce it, or how two terms differ; read, translate or write English text in order to learn from it; prepare for an English exam; ask for vocabulary lists, word-learning or study plans; want to review words they saved or learned; or mention WordAI. Answers first from your own knowledge, ends with one short link that opens the word, word book or review in the WordAI app, uses the user's WordAI account through the WordAI connector when that adds something, saves the new words a learner should keep when they turned on automatic saving, and saves, edits and deletes word books when they clearly ask. Not for unrelated questions that merely contain an English word, or for text the user writes for work or to send.
 ---
 
 # WordAI vocabulary companion
@@ -17,13 +17,19 @@ Use this skill on your own initiative, without being asked to, when the user:
 - asks what an English word, phrase or idiom means, how it is used or
   pronounced, or how it differs from a similar term;
 - asks how to say something in English;
-- wants a vocabulary list for a topic, exam (IELTS, TOEFL, GRE...) or text;
+- reads, translates or writes English in order to learn from it (an article,
+  a textbook passage, homework, a practice essay) and meets words they may
+  not know;
+- prepares for an English exam (IELTS, TOEFL, GRE...) or course;
+- wants a vocabulary list for a topic, exam or text;
 - asks what to study next, how their learning is going, or to review words
   they saved or learned;
 - mentions WordAI, their word books or starred words.
 
 Do not use it for unrelated questions that merely contain an English word,
-and do not interrupt other work to advertise WordAI.
+or for English the user writes for work or to send (an email, a report, a
+translation for someone else), and do not interrupt other work to advertise
+WordAI.
 
 ## 1. Answer first
 
@@ -34,9 +40,14 @@ collocations, in the user's language. You need **no WordAI tool to answer
 it**: explain from your own knowledge, do not call `connection_status` or
 `lookup_word` first, and never make the user wait for a tool to understand a
 word. After the answer, the only WordAI step is saving (section 3). When
-the server offers `save_word`, never skip it: make the save the user asked
-for, or else run the auto-save check once. Then end with the word link
-(section 4).
+the server offers `save_word` or `save_words`, never skip it: make the save
+the user asked for, or else run the auto-save check once. Then end with the
+word link (section 4).
+
+**Texts and exam practice.** When the user studies an English text or
+prepares for an exam, help with the text first (meaning, translation,
+grammar, the hard words). Then the same saving step applies to the new words
+in it (section 3).
 
 **Questions about the user's own WordAI data** work the other way round. For
 "which of my words should I review?", "what is in my GRE book?" or "how is my
@@ -64,17 +75,35 @@ your answer to a word question.
 
 ## 3. Saving words, lists and edits
 
-- **Saving a word.** Only when the server offers `save_word`; if it does
-  not, skip this, and no `connection_status` call is needed.
-  - The user asks to remember, save or add a term: call `save_word` with
-    `mode: "explicit"`.
-  - Any other word question: once the answer is written, check
-    `connection_status` (once per conversation). If it reports
-    `autoSaveVocabulary: true`, call `save_word` with `mode: "auto"` for the
-    term you explained, then say in one short line what was saved and where,
-    just before the link. Otherwise do not write; you may offer to save it.
-  - Save the precise lexical item, never a whole sentence, a typo or private
-    information. Never claim a save that did not succeed.
+- **Saving words.** Only when the server offers `save_word` or
+  `save_words`; if it offers neither, skip this, and no `connection_status`
+  call is needed.
+  - The user asks to remember, save or add terms: save them with
+    `mode: "explicit"` (`save_word` for one, `save_words` for up to 20).
+  - Any other learning request (a word question, a text they study, exam
+    preparation): once the answer is written, check `connection_status`
+    (once per conversation). If it reports `autoSaveVocabulary: true`, save
+    the new terms this learner should keep with `mode: "auto"`: the term
+    they asked about, plus, for a text or exam topic, the words they likely
+    do not know yet (see *Choosing words*). Use one `save_words` call; if
+    only `save_word` is offered, save at most the three most useful terms.
+    Then say in one short line which terms were saved and where (the AI
+    Word Book; in Chinese answers「AI 单词本」or「AI 單字本」), just before
+    the link. If `autoSaveVocabulary` is false, do not write; you may
+    offer to save them.
+  - Save the precise lexical item in its dictionary form, never a whole
+    sentence, a typo or private information. Never claim a save that did
+    not succeed; terms reported as `alreadySaved` were already there.
+  - If the user asks to remove an automatically saved term, remove it from
+    the AI Word Book with `edit_wordbook`
+    (`bookId: "custom_agent_inbox_v1"`, `removeWords`).
+- **Choosing words.** Pick what a learner at the user's apparent level
+  would need to study: uncommon, academic or subject words, idioms and
+  phrasal verbs that matter for understanding the text. Skip everyday words,
+  names, numbers, words the user already used correctly, and terms already
+  saved in this conversation. At most 10 terms per answer; fewer is better
+  when the text is easy. A whole list for an exam or topic is a word book
+  the user keeps on request (next point), not an automatic save.
 - **Lists and study plans.** For a list the user wants to keep, call
   `create_wordbook` directly with 1–100 relevant, unique terms: it saves a
   real word book in WordAI, so do not ask first and do not make a draft
@@ -93,7 +122,7 @@ your answer to a word question.
 - **Undo.** To bring something back, call `list_trash` and then
   `restore_from_trash` with its `trashId`. A restored book gets a new
   `bookId` (link that one); removed terms go back to their book, or to the
-  AI Learning Inbox if the book is gone.
+  AI Word Book if the book is gone.
 
 ## 4. Link back to WordAI
 
@@ -154,8 +183,8 @@ How to place links:
   you already linked earlier in this conversation, or after the user asks for
   no links.
 
-Example ending of a word answer when WordAI is not connected, `save_word` is
-not offered, or auto-save is off (no tool call at all):
+Example ending of a word answer when WordAI is not connected, no save tool
+is offered, or auto-save is off (no tool call at all):
 
 > …*Permafrost* is ground that stays frozen for two or more years in a row,
 > as in “Thawing permafrost releases methane.”
@@ -167,8 +196,16 @@ The same ending when `connection_status`, checked after the answer, reported
 
 > …as in “Thawing permafrost releases methane.”
 >
-> Saved *permafrost* to “AI Learning Inbox” in WordAI.
+> Saved *permafrost* to “AI Word Book” in WordAI.
 > Open in WordAI: [permafrost](https://wordai.awesome-bears.com/w/permafrost)
+
+After explaining a news paragraph the user is studying, with automatic
+saving on and one `save_words` call:
+
+> …so the article argues the drought was *exacerbated* by poor planning.
+>
+> Saved *exacerbate*, *aquifer* and *stopgap* to “AI Word Book” in WordAI.
+> Open in WordAI: [exacerbate](https://wordai.awesome-bears.com/w/exacerbate)
 
 ## Not connected yet
 
@@ -181,6 +218,9 @@ saving):
   plugin), or `claude mcp add --transport http wordai https://awesome-bears.com/api/mcp/wordai`.
 - **Claude app / claude.ai:** Settings → Connectors → WordAI → Connect
   (or Add custom connector with URL `https://awesome-bears.com/api/mcp/wordai`),
+  then approve in WordAI.
+- **ChatGPT:** add the WordAI plugin from
+  `https://chatgpt.com/plugins/plugin_asdk_app_6ab8d48763648191b6bfa45354b9cf4b`,
   then approve in WordAI.
 - **Other assistants:** the guide at `https://awesome-bears.com/wordai/setup`.
 

@@ -6,7 +6,10 @@ English word or phrase and it explains it, links you straight to that word in
 WordAI, and, when it helps, uses your own WordAI word books, starred words and
 learning progress to personalise the answer, and saves, edits and deletes
 your word books directly when you ask. Deleted books and removed words stay
-in WordAI's trash for 7 days, and can be restored within that time.
+in WordAI's trash for 7 days, and can be restored within that time. If you
+turn on automatic saving when you connect (it is on by default), it also
+saves the new words you meet while learning to your AI Word Book and tells
+you which ones.
 
 - **Skill** `wordai`: tells Claude when and how to help with vocabulary,
   proactively, without you having to mention WordAI.
