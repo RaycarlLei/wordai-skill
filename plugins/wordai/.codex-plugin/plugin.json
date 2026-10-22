@@ -112,7 +112,16 @@
       "publication": {
         "countries": [
           "US",
-          "CA"
+          "CA",
+          "GB",
+          "AU",
+          "NZ",
+          "SG",
+          "MY",
+          "HK",
+          "TW",
+          "JP",
+          "KR"
         ],
         "release_notes": "1.3.0: Helps with English learning beyond single words: texts the user studies, exam practice. New save_words tool saves up to 20 terms in one call. When the user turned on automatic saving (now offered, on by default, on WordAI's consent page), WordAI saves the new words a learner should keep to the AI Word Book and names them; otherwise nothing is saved without a request.",
         "translations": {
