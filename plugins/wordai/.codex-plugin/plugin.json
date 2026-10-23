@@ -21,7 +21,7 @@
   "interface": {
     "displayName": "WordAI",
     "shortDescription": "English vocabulary with WordAI",
-    "longDescription": "Ask about any English word or phrase, or study an English text: WordAI explains it and links you straight to that word, your word books or a flash-card review in the WordAI app. With your permission, it reads your WordAI word books and learning progress to personalise study lists and reviews, and saves words, creates, edits and deletes word books when you clearly ask. If you turn on automatic saving when you connect, it also saves the new words you meet while learning to your AI Word Book and tells you which ones; you can turn this off anytime in the WordAI app. Deleted books and removed words stay in WordAI's trash for 7 days and can be restored. It can also prepare a private draft list for you to review first. Search history is off by default. Sign-in and approval happen on WordAI's own page; you can disconnect anytime in the WordAI app. Requires a WordAI account.",
+    "longDescription": "Ask about any English word or phrase, or study an English text: WordAI explains it and links you straight to that word, your word books or a flash-card review in the WordAI app. With your permission, it reads your WordAI word books and learning progress to personalise study lists and reviews, and saves words, creates, edits and deletes word books when you clearly ask. If you turn on automatic saving when you connect, it also saves the new words you meet while learning to your AI Word Book and tells you which ones; you can turn this off anytime in the WordAI app. Deleted books and removed words stay in WordAI's trash for 7 days and can be restored. It can also prepare a private draft list for you to review first. Your recent searches are recorded only while an assistant you approved to read them is connected, and are kept for 90 days. Sign-in and approval happen on WordAI's own page; you can disconnect anytime in the WordAI app. Requires a WordAI account.",
     "developerName": "Awesome-Bears, Inc.",
     "category": "Education & Research",
     "capabilities": [
@@ -123,19 +123,19 @@
           "JP",
           "KR"
         ],
-        "release_notes": "1.3.1: New WordAI icon (the glowing W of the current app). 1.3.0: Helps with English learning beyond single words: texts the user studies, exam practice. New save_words tool saves up to 20 terms in one call. When the user turned on automatic saving (now offered, on by default, on WordAI's consent page), WordAI saves the new words a learner should keep to the AI Word Book and names them; otherwise nothing is saved without a request.",
+        "release_notes": "1.3.1: New WordAI icon (the glowing W of the current app); the description now says when recent searches are recorded. 1.3.0: Helps with English learning beyond single words: texts the user studies, exam practice. New save_words tool saves up to 20 terms in one call. When the user turned on automatic saving (now offered, on by default, on WordAI's consent page), WordAI saves the new words a learner should keep to the AI Word Book and names them; otherwise nothing is saved without a request.",
         "translations": {
           "zh-CN": {
             "subtitle": "用 WordAI 学英语单词",
-            "description": "询问任何英语单词或短语，或学习一段英文：WordAI 会给出解释，并附上直达 WordAI App 中该词、你的单词本或闪卡复习的链接。经你授权后，它会读取你的 WordAI 单词本和学习进度来定制学习清单和复习计划，并在你明确要求时收藏单词、创建、编辑和删除单词本。如果你在连接时开启自动保存，它还会把你学习中遇到的生词存进「AI 单词本」并告诉你存了哪些；随时可以在 WordAI App 中关闭。删除的单词本和移除的单词会在 WordAI 回收站保留 7 天，可以恢复。它也可以先生成一份私人草稿供你确认。搜索记录默认关闭。登录和授权都在 WordAI 自己的页面完成，随时可以在 WordAI App 中断开连接。需要 WordAI 账号。"
+            "description": "询问任何英语单词或短语，或学习一段英文：WordAI 会给出解释，并附上直达 WordAI App 中该词、你的单词本或闪卡复习的链接。经你授权后，它会读取你的 WordAI 单词本和学习进度来定制学习清单和复习计划，并在你明确要求时收藏单词、创建、编辑和删除单词本。如果你在连接时开启自动保存，它还会把你学习中遇到的生词存进「AI 单词本」并告诉你存了哪些；随时可以在 WordAI App 中关闭。删除的单词本和移除的单词会在 WordAI 回收站保留 7 天，可以恢复。它也可以先生成一份私人草稿供你确认。只有在你授权读取搜索记录的助手保持连接期间，才会记录最近的搜索，保留 90 天。登录和授权都在 WordAI 自己的页面完成，随时可以在 WordAI App 中断开连接。需要 WordAI 账号。"
           },
           "zh-TW": {
             "subtitle": "用 WordAI 學英文單字",
-            "description": "詢問任何英文單字或片語，或學習一段英文：WordAI 會提供解釋，並附上直達 WordAI App 中該字、你的單字本或閃卡複習的連結。經你授權後，它會讀取你的 WordAI 單字本和學習進度來客製學習清單和複習計畫，並在你明確要求時收藏單字、建立、編輯和刪除單字本。如果你在連接時開啟自動儲存，它還會把你學習中遇到的生字存進「AI 單字本」並告訴你存了哪些；隨時可以在 WordAI App 中關閉。刪除的單字本和移除的單字會在 WordAI 垃圾桶保留 7 天，可以還原。它也可以先產生一份私人草稿讓你確認。搜尋紀錄預設關閉。登入和授權都在 WordAI 自己的頁面完成，隨時可以在 WordAI App 中中斷連線。需要 WordAI 帳號。"
+            "description": "詢問任何英文單字或片語，或學習一段英文：WordAI 會提供解釋，並附上直達 WordAI App 中該字、你的單字本或閃卡複習的連結。經你授權後，它會讀取你的 WordAI 單字本和學習進度來客製學習清單和複習計畫，並在你明確要求時收藏單字、建立、編輯和刪除單字本。如果你在連接時開啟自動儲存，它還會把你學習中遇到的生字存進「AI 單字本」並告訴你存了哪些；隨時可以在 WordAI App 中關閉。刪除的單字本和移除的單字會在 WordAI 垃圾桶保留 7 天，可以還原。它也可以先產生一份私人草稿讓你確認。只有在你授權讀取搜尋紀錄的助手保持連線期間，才會記錄最近的搜尋，保留 90 天。登入和授權都在 WordAI 自己的頁面完成，隨時可以在 WordAI App 中中斷連線。需要 WordAI 帳號。"
           },
           "zh-HK": {
             "subtitle": "用 WordAI 學英文生字",
-            "description": "詢問任何英文生字或片語，或溫習一段英文：WordAI 會提供解釋，並附上直達 WordAI App 中該字、你的生字簿或閃卡溫習的連結。經你授權後，它會讀取你的 WordAI 生字簿和學習進度來度身訂造學習清單和溫習計劃，並在你明確要求時收藏生字、建立、編輯和刪除生字簿。如果你在連接時開啟自動儲存，它還會把你學習中遇到的生字存進「AI 單字本」並告訴你存了哪些；隨時可以在 WordAI App 中關閉。刪除的生字簿和移除的生字會在 WordAI 垃圾桶保留 7 天，可以還原。它也可以先產生一份私人草稿讓你確認。搜尋紀錄預設關閉。登入和授權都在 WordAI 自己的頁面完成，隨時可以在 WordAI App 中中斷連線。需要 WordAI 帳戶。"
+            "description": "詢問任何英文生字或片語，或溫習一段英文：WordAI 會提供解釋，並附上直達 WordAI App 中該字、你的生字簿或閃卡溫習的連結。經你授權後，它會讀取你的 WordAI 生字簿和學習進度來度身訂造學習清單和溫習計劃，並在你明確要求時收藏生字、建立、編輯和刪除生字簿。如果你在連接時開啟自動儲存，它還會把你學習中遇到的生字存進「AI 單字本」並告訴你存了哪些；隨時可以在 WordAI App 中關閉。刪除的生字簿和移除的生字會在 WordAI 垃圾桶保留 7 天，可以還原。它也可以先產生一份私人草稿讓你確認。只有在你授權讀取搜尋紀錄的助手保持連線期間，才會記錄最近的搜尋，保留 90 天。登入和授權都在 WordAI 自己的頁面完成，隨時可以在 WordAI App 中中斷連線。需要 WordAI 帳戶。"
           }
         }
       }
