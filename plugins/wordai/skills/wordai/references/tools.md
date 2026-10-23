@@ -15,7 +15,7 @@ them what changed and that deleted items stay in WordAI's trash for 7 days.
 
 | Tool | Scope | Purpose |
 |---|---|---|
-| `connection_status` | — | Connected account, granted scopes, preferences (e.g. `autoSaveVocabulary` on newer servers). At most once per conversation; for a learning request only after the answer, and only when `save_word` or `save_words` is offered |
+| `connection_status` | — | Connected account, granted scopes, preferences (e.g. `autoSaveVocabulary` on newer servers), and on newer servers whether the account has used the WordAI app (`appSignedIn`, with `appUrl`). At most once per conversation; for a learning request only after the answer, and only when `save_word` or `save_words` is offered |
 | `get_profile` | — | Distinguish the connected account; not for identifying a person |
 | `list_wordbooks` | `wordbooks:read` | The user's word books (starred, custom, built-in) |
 | `get_wordbook` | `wordbooks:read` | Words in one book; page with `nextCursor` / `nextOffset` |
