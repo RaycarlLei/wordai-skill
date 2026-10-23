@@ -1,6 +1,6 @@
 {
   "name": "wordai",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "Explains English words and phrases with one-tap links into the WordAI app, and uses your WordAI word books, learning progress and dictionary through the official WordAI connector when that helps.",
   "author": {
     "name": "Awesome-Bears, Inc.",
@@ -123,7 +123,7 @@
           "JP",
           "KR"
         ],
-        "release_notes": "1.3.0: Helps with English learning beyond single words: texts the user studies, exam practice. New save_words tool saves up to 20 terms in one call. When the user turned on automatic saving (now offered, on by default, on WordAI's consent page), WordAI saves the new words a learner should keep to the AI Word Book and names them; otherwise nothing is saved without a request.",
+        "release_notes": "1.3.1: New WordAI icon (the glowing W of the current app). 1.3.0: Helps with English learning beyond single words: texts the user studies, exam practice. New save_words tool saves up to 20 terms in one call. When the user turned on automatic saving (now offered, on by default, on WordAI's consent page), WordAI saves the new words a learner should keep to the AI Word Book and names them; otherwise nothing is saved without a request.",
         "translations": {
           "zh-CN": {
             "subtitle": "用 WordAI 学英语单词",
